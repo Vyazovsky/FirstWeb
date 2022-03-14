@@ -12,7 +12,12 @@ public class ProductApi {
 
     @GetMapping(value = "/get-product")
     public String getProduct() {
-        return "Product";
+        return "Product1";
+    }
+
+    @GetMapping(value = "/get-product2")
+    public String getProduct2() {
+        return "Product2";
     }
 
 
