@@ -15,10 +15,8 @@ public class ProductApi {
         return "Product1";
     }
 
-    @GetMapping(value = "/get-product2")
-    public String getProduct2() {
-        return "Product2";
-    }
+
+
 
 
 }
