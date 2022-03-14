@@ -15,9 +15,5 @@ public class ProductApi {
         return "Product";
     }
 
-    @GetMapping(value = "/get-date")
-    public LocalDateTime getDate() {
-        return LocalDateTime.now();
-    }
 
 }
