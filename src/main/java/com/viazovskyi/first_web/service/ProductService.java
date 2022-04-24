@@ -20,7 +20,7 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public void deleteProduct(String productId) {
+    public void deleteProductById(String productId) {
         productRepository.deleteById(productId);
     }
 
