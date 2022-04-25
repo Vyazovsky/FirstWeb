@@ -1,6 +1,7 @@
 package com.viazovskyi.first_web.api;
 
 import com.viazovskyi.first_web.dto.products.ProductRequestDto;
+import com.viazovskyi.first_web.dto.products.ProductResponseDto;
 import com.viazovskyi.first_web.dto.products.transformer.ProductTransformer;
 import com.viazovskyi.first_web.model.Product;
 import com.viazovskyi.first_web.service.ProductService;
@@ -30,8 +31,8 @@ public class ProductApi {
     }
 
     @GetMapping("/get-all-products-two-fields")
-    public List<Product> getAllProductsTwoFields(){
-        return productService.getAllProductsTwoFields();
+    public List<ProductResponseDto> getAllProductsTwoFields(){
+        return ProductTransformer.toListPRDto(productService.getAllProducts());
     }
 
     @DeleteMapping

@@ -7,6 +7,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProductTransformer {
     public static Product toProduct(ProductRequestDto requestDto) {
@@ -21,12 +24,21 @@ public class ProductTransformer {
 
     }
 
-    public static Product toProductTwoField(Product productBace){
+    public static ProductResponseDto toProductTwoField(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
-        Product product = new Product();
-        BeanUtils.copyProperties(productBace, productResponseDto);
-        BeanUtils.copyProperties(productResponseDto, product);
+        BeanUtils.copyProperties(product, productResponseDto);
+        return productResponseDto;
 
-        return product;
+    }
+
+    public static List<ProductResponseDto> toListPRDto(List<Product> productList) {
+        List<ProductResponseDto> productResponseDto = new ArrayList<>();
+        for(Product product : productList){
+            productResponseDto.add(toProductTwoField(product));
+
+
+        }
+
+        return productResponseDto;
     }
 }

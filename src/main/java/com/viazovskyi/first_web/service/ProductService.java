@@ -38,14 +38,7 @@ public class ProductService {
         return productList;
     }
 
-    public List<Product> getAllProductsTwoFields() {
-        List<Product> productList = new ArrayList<>();
-        for(Product product : productRepository.findAll()){
-            productList.add(ProductTransformer.toProductTwoField(product));
 
-        }
-        return productList;
-    }
 
     public List<Product> getProductByPrice(Double price){
 //        List<Product> productList = new ArrayList<>();
