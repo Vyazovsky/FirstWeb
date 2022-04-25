@@ -1,6 +1,7 @@
 package com.viazovskyi.first_web.dto.products.transformer;
 
 import com.viazovskyi.first_web.dto.products.ProductRequestDto;
+import com.viazovskyi.first_web.dto.products.ProductResponseDto;
 import com.viazovskyi.first_web.model.Product;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,14 @@ public class ProductTransformer {
         BeanUtils.copyProperties(requestDto, product);
         return product;
 
+    }
+
+    public static Product toProductTwoField(Product productBace){
+        ProductResponseDto productResponseDto = new ProductResponseDto();
+        Product product = new Product();
+        BeanUtils.copyProperties(productBace, productResponseDto);
+        BeanUtils.copyProperties(productResponseDto, product);
+
+        return product;
     }
 }

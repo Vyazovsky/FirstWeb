@@ -29,6 +29,11 @@ public class ProductApi {
         return productService.getAllProducts();
     }
 
+    @GetMapping("/get-all-products-two-fields")
+    public List<Product> getAllProductsTwoFields(){
+        return productService.getAllProductsTwoFields();
+    }
+
     @DeleteMapping
     public ResponseEntity<?> deleteProductById(@RequestParam (name = "productId") String id) {
         productService.deleteProductById(id);

@@ -1,5 +1,6 @@
 package com.viazovskyi.first_web.service;
 
+import com.viazovskyi.first_web.dto.products.transformer.ProductTransformer;
 import com.viazovskyi.first_web.model.Product;
 import com.viazovskyi.first_web.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,15 @@ public class ProductService {
             productList.add(product);
         }
 
+        return productList;
+    }
+
+    public List<Product> getAllProductsTwoFields() {
+        List<Product> productList = new ArrayList<>();
+        for(Product product : productRepository.findAll()){
+            productList.add(ProductTransformer.toProductTwoField(product));
+
+        }
         return productList;
     }
 
