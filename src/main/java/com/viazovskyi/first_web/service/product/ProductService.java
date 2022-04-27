@@ -1,13 +1,14 @@
-package com.viazovskyi.first_web.service;
+package com.viazovskyi.first_web.service.product;
 
-import com.viazovskyi.first_web.dto.products.transformer.ProductTransformer;
-import com.viazovskyi.first_web.model.Product;
-import com.viazovskyi.first_web.repository.ProductRepository;
+import com.viazovskyi.first_web.exception.product.ProductNotFoundException;
+import com.viazovskyi.first_web.model.product.Product;
+import com.viazovskyi.first_web.repository.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -34,25 +35,21 @@ public class ProductService {
         for(Product product : productRepository.findAll()){
             productList.add(product);
         }
-
         return productList;
     }
 
-
-
     public List<Product> getProductByPrice(Double price){
-//        List<Product> productList = new ArrayList<>();
-//
-//        productRepository.findAllByPrice(price).forEach(productList::add);
-//
-//        for(Product product : productRepository.findAllByPrice(price)){
-//            productList.add(product);
-//        }
-//        return productList;
-
         return StreamSupport.stream(productRepository.findAllByPrice(price).spliterator(), false)
                 .collect(Collectors.toList());
     }
 
+    public Product getProductById(String id) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if(!optionalProduct.isPresent()){
+            throw new ProductNotFoundException(id);
+        }
+        return optionalProduct.get();
 
+//        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+    }
 }

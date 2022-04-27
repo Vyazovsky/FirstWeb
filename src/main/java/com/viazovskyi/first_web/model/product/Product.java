@@ -1,4 +1,4 @@
-package com.viazovskyi.first_web.model;
+package com.viazovskyi.first_web.model.product;
 
 import lombok.Getter;
 import lombok.Setter;
