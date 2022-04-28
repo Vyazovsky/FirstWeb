@@ -4,27 +4,23 @@ import {getAllProducts} from "../../reducer/product/productActions";
 
 import './ProductList.css';
 
-function ProductList ({getAllProducts, products}) {
+function ProductList({getAllProducts, products}) {
 
     useEffect(() => {
         getAllProducts();
     }, [])
 
-    return(
+    return (
         <div>
             <table>
                 <thead>
                 <th>Name</th>
                 <th>Price</th>
-                <th>Description</th>
-                <th>Country</th>
                 </thead>
                 <tbody>
-                {products.map(product => <tr>
+                {products.map(product => <tr key={product.id}>
                     <td>{product.name}</td>
                     <td>{product.price}</td>
-                    <td>{product.description}</td>
-                    <td>{product.country}</td>
                 </tr>)}
                 </tbody>
             </table>
@@ -32,7 +28,7 @@ function ProductList ({getAllProducts, products}) {
     )
 }
 
-const mapStateToProps = ({product:{products}}) => {
+const mapStateToProps = ({product: {products}}) => {
     return {products};
 };
 

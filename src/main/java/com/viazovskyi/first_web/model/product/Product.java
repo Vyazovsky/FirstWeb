@@ -4,10 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.Setting;
+import org.springframework.data.elasticsearch.annotations.*;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -27,4 +26,23 @@ public class Product {
     private String description;
 
     private String country;
+
+    private ProductInfo productInfo;
+
+    public double getCountedPrice (int perc) {
+        return price - (price / 100 * perc);
+    }
+
+    @Getter
+    @Setter
+    @Accessors(chain = true)
+    public static class ProductInfo{
+        @Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second)
+        private LocalDateTime createdOn;
+
+        @Field(type = FieldType.Keyword)
+        private String createdBy;
+    }
 }
+
+

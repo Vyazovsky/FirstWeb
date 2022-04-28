@@ -1,5 +1,6 @@
 package com.viazovskyi.first_web.service;
 
+import com.viazovskyi.first_web.dto.products.CustomerProductDetailResponse;
 import com.viazovskyi.first_web.dto.products.ProductRequestDto;
 import com.viazovskyi.first_web.dto.products.ProductResponseDto;
 import com.viazovskyi.first_web.dto.products.transformer.ProductTransformer;
@@ -36,7 +37,7 @@ public class FacadeService {
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (ProductNotFoundException e){
             log.info(e.getMessage());
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -44,5 +45,9 @@ public class FacadeService {
         return productService.getProductByPrice(price);
     }
 
+    public CustomerProductDetailResponse getCustomerProductDetailById(String id){
+        Product product = productService.getProductById(id);
+        return ProductTransformer.toCustomerProductDetail(product);
+    }
 
 }

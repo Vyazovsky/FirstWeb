@@ -3,15 +3,18 @@ package com.viazovskyi.first_web.service.product;
 import com.viazovskyi.first_web.exception.product.ProductNotFoundException;
 import com.viazovskyi.first_web.model.product.Product;
 import com.viazovskyi.first_web.repository.product.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Slf4j
 @Service
 public class ProductService {
 
