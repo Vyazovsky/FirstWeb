@@ -1,25 +1,26 @@
 import {
-    CHANGE_COUNTRY,
-    CHANGE_DESCRIPTION,
-    CHANGE_NAME,
-    CHANGE_PRICE,
-    CHANGE_PRODUCT
+    CHANGE_PRODUCT,
+    SET_DETAIL_PRODUCT
 } from "./productActions";
 
 const initialState = {
-    name: '',
-    description: '',
-    price: '',
-    country: '',
+    productDetails: {
+        id: '',
+        name: '',
+        description: '',
+        price: '',
+        country: '',
+        actualPrice: ''
+    },
     products: []
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case CHANGE_PRICE:
+        case SET_DETAIL_PRODUCT:
             return {
                 ...state,
-                price: action.payload
+                productDetails: {...action.payload}
             };
         case CHANGE_PRODUCT:
             return {

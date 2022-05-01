@@ -1,9 +1,9 @@
 package com.viazovskyi.first_web.dto.products.transformer;
 
-import com.viazovskyi.first_web.dto.products.CustomerProductDetailResponse;
 import com.viazovskyi.first_web.dto.products.ProductRequestDto;
 import com.viazovskyi.first_web.dto.products.ProductResponseDto;
 import com.viazovskyi.first_web.model.product.Product;
+import com.viazovskyi.first_web.util.ClassUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -24,23 +24,16 @@ public class ProductTransformer {
         return product;
     }
 
-    public static ProductResponseDto toRequiredFieldsProduct (Product product) {
-        ProductResponseDto productResponseDto = new ProductResponseDto();
-        BeanUtils.copyProperties(product, productResponseDto);
-        return productResponseDto;
+    public static <T extends ProductResponseDto, P extends Product> T toProductDto(P product, Class<T> targetClass) {
+        T response = ClassUtils.getInstance(targetClass);
+        BeanUtils.copyProperties(product, response);
+        return response;
     }
 
-    public static CustomerProductDetailResponse toCustomerProductDetail(Product product){
-        CustomerProductDetailResponse customerProductDetailResponse =
-                new CustomerProductDetailResponse();
-        BeanUtils.copyProperties(product, customerProductDetailResponse);
-        return customerProductDetailResponse;
-    }
-
-    public static List<ProductResponseDto> toListPRDto (List<Product> productList) {
+    public static List<ProductResponseDto> toListPRDto (List<Product> productList, int percentage) {
         List<ProductResponseDto> productResponseDto = new ArrayList<>();
         for (Product product : productList) {
-            productResponseDto.add(toRequiredFieldsProduct(product));
+            productResponseDto.add(toProductDto(product, ProductResponseDto.class).setActualPrice(percentage));
         }
         return productResponseDto;
     }

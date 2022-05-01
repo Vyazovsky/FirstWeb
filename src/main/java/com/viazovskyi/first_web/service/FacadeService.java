@@ -30,7 +30,7 @@ public class FacadeService {
     }
 
     public List<ProductResponseDto> getRequiredFieldsProducts(){
-        return ProductTransformer.toListPRDto(productService.getAllProducts());
+        return ProductTransformer.toListPRDto(productService.getAllProducts(), 10);
     }
 
     public ResponseEntity<?> deleteProductById(String id) {
@@ -51,7 +51,9 @@ public class FacadeService {
     public ResponseEntity<?> getCustomerProductDetailById(String id){
         try {
             Product product = productService.getProductById(id);
-            return ResponseEntity.ok(ProductTransformer.toCustomerProductDetail(product));
+            return ResponseEntity.ok(ProductTransformer
+                    .toProductDto(product, CustomerProductDetailResponse.class)
+                    .setActualPrice(10));
         } catch (ProductNotFoundException e){
             log.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

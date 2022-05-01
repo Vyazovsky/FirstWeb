@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {getAllProducts} from "../../reducer/product/productActions";
 
 import './ProductList.css';
+import {Link} from "react-router-dom";
 
 function ProductList({getAllProducts, products}) {
 
@@ -19,8 +20,10 @@ function ProductList({getAllProducts, products}) {
                 </thead>
                 <tbody>
                 {products.map(product => <tr key={product.id}>
-                    <td>{product.name}</td>
-                    <td>{product.price}</td>
+                    <Link to={`/${product.id}`}>
+                        <td>{product.name}</td>
+                    </Link>
+                    <td>{product.actualPrice} <span className={'old-price'}>{product.price}</span></td>
                 </tr>)}
                 </tbody>
             </table>

@@ -43,6 +43,7 @@ public class ProductApi {
         return facadeService.getProductByPrice(price);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/get-by-id/{id}")
     public ResponseEntity<?> getProductDetailById(@PathVariable String id){
         return facadeService.getCustomerProductDetailById(id);

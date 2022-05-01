@@ -29,10 +29,6 @@ public class Product {
 
     private ProductInfo productInfo;
 
-    public double getCountedPrice (int perc) {
-        return price - (price / 100 * perc);
-    }
-
     @Getter
     @Setter
     @Accessors(chain = true)

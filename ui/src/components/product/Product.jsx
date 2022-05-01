@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
-import {changePrice, getProductsByPrice} from "../../reducer/product/productActions";
+import {getProductsByPrice} from "../../reducer/product/productActions";
 import ProductList from "./ProductList";
+import './Product.css'
 
-function Product({changePrice, price, getProductsByPrice}) {
+function Product({getProductsByPrice}) {
+
+    const[price, changePrice] = useState('');
+
     return (
         <div>
             <div>
@@ -11,7 +15,7 @@ function Product({changePrice, price, getProductsByPrice}) {
                 <input value={price} onChange={({target: {value}}) => changePrice(value)}/>
             </div>
             <div>
-                <input type={'button'} value={'Get By Price'} onClick={() => getProductsByPrice()}/>
+                <input type={'button'} value={'Get By Price'} onClick={() => getProductsByPrice(price)}/>
             </div>
 
             <ProductList />
@@ -23,6 +27,6 @@ const mapStateToProps = ({product}) => {
     return product;
 };
 
-const mapDispatchToProps = {changePrice, getProductsByPrice};
+const mapDispatchToProps = {getProductsByPrice};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);

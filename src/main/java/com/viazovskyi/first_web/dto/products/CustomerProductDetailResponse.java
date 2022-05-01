@@ -7,10 +7,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class CustomerProductDetailResponse {
-    private String id;
-    private String name;
-    private double price;
+public class CustomerProductDetailResponse extends ProductResponseDto {
     private String description;
     private String country;
 
