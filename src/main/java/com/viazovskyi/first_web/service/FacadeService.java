@@ -7,6 +7,9 @@ import com.viazovskyi.first_web.dto.products.transformer.ProductTransformer;
 import com.viazovskyi.first_web.exception.product.ProductNotFoundException;
 import com.viazovskyi.first_web.model.product.Product;
 import com.viazovskyi.first_web.service.product.ProductService;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,9 +48,14 @@ public class FacadeService {
         return productService.getProductByPrice(price);
     }
 
-    public CustomerProductDetailResponse getCustomerProductDetailById(String id){
-        Product product = productService.getProductById(id);
-        return ProductTransformer.toCustomerProductDetail(product);
+    public ResponseEntity<?> getCustomerProductDetailById(String id){
+        try {
+            Product product = productService.getProductById(id);
+            return ResponseEntity.ok(ProductTransformer.toCustomerProductDetail(product));
+        } catch (ProductNotFoundException e){
+            log.error(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

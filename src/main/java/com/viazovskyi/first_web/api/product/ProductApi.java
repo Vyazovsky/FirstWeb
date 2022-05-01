@@ -44,7 +44,7 @@ public class ProductApi {
     }
 
     @GetMapping(value = "/get-by-id/{id}")
-    public CustomerProductDetailResponse getProductDetailById(@PathVariable String id){
+    public ResponseEntity<?> getProductDetailById(@PathVariable String id){
         return facadeService.getCustomerProductDetailById(id);
     }
 }

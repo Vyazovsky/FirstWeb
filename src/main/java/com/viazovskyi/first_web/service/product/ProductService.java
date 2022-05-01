@@ -48,7 +48,7 @@ public class ProductService {
 
     public Product getProductById(String id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-        if(!optionalProduct.isPresent()){
+        if(optionalProduct.isEmpty()){
             throw new ProductNotFoundException(id);
         }
         return optionalProduct.get();
