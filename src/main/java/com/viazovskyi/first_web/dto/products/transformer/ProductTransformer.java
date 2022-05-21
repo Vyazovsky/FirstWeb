@@ -1,5 +1,6 @@
 package com.viazovskyi.first_web.dto.products.transformer;
 
+import com.viazovskyi.first_web.dto.products.AdminProductDetailResponse;
 import com.viazovskyi.first_web.dto.products.ProductRequestDto;
 import com.viazovskyi.first_web.dto.products.ProductResponseDto;
 import com.viazovskyi.first_web.model.product.Product;
@@ -36,5 +37,13 @@ public class ProductTransformer {
             productResponseDto.add(toProductDto(product, ProductResponseDto.class).setActualPrice(percentage));
         }
         return productResponseDto;
+    }
+
+    public static AdminProductDetailResponse byProduct(Product product){
+        AdminProductDetailResponse adminProductDetailResponse = new AdminProductDetailResponse();
+        BeanUtils.copyProperties(product, adminProductDetailResponse);
+        adminProductDetailResponse.setCreatedBy(product.getProductInfo().getCreatedBy());
+        adminProductDetailResponse.setCreatedOn(product.getProductInfo().getCreatedOn());
+        return adminProductDetailResponse;
     }
 }

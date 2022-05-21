@@ -48,16 +48,37 @@ public class FacadeService {
         return productService.getProductByPrice(price);
     }
 
-    public ResponseEntity<?> getCustomerProductDetailById(String id){
+    public ResponseEntity<?> getCustomerProductDetailById(String id) {
         try {
             Product product = productService.getProductById(id);
             return ResponseEntity.ok(ProductTransformer
                     .toProductDto(product, CustomerProductDetailResponse.class)
                     .setActualPrice(10));
-        } catch (ProductNotFoundException e){
+        } catch (ProductNotFoundException e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    public ResponseEntity<?> getAdminProductById(String id) {
+        try {
+            return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
+        } catch (ProductNotFoundException e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity<?> getDimonProductById(String id) {
+        try {
+            Product product = productService.getProductById(id);
+            return new ResponseEntity<>(ProductTransformer.byProduct(product), HttpStatus.OK);
+        } catch (ProductNotFoundException e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 
 }
